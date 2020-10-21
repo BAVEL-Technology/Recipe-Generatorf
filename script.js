@@ -15,8 +15,6 @@ function sleep(ms) {
 * typeWriter types as long as the counter is not the same as the length of the word it's typing
 */
 async function typeWriter(question) {
-  console.log(txt);
-  console.log(count);
   if (document.querySelector('#i-have')) {
     if (i < txt.length)
     {
