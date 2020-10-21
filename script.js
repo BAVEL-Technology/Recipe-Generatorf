@@ -120,6 +120,17 @@ $(document).ready(function () {
     console.log("the user has typed");
   });
 
+  // add event listener for when user presses 'enter'. when this happens, the ingredient should be added as a span and the value should be sent to the ingrChoice array
+  $("input").on('keypress', function(e) {
+    let ingrInput = $(this).value;
+    if(e.which == 13) {
+      $("input").add("<div id='i-have-tags'>");
+      $("#i-have-tags").add("<span class='inline-block bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ingrChoice'>");
+      $(".ingrChoice").text(ingrInput);
+    }
+    console.log("enter was pressed in the text field");
+  });
+
   // add an event listener for the recipeButton
   $(".recipeButton").on("click", function () {
     // define terms
