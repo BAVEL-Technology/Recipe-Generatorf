@@ -184,38 +184,5 @@
 </div>
 </div>
 <script src="script.js"></script>
-<script>
-var filters = false;
-function moreFilters() {
-  if (filters) {
-
-  } else {
-
-  }
-}
-var yes = true;
-  function cilantro() {
-    if (yes) {
-      let cilantro = document.getElementById('cilantro');
-      cilantro.classList.remove('text-green-700');
-      cilantro.classList.remove('bg-green-200');
-      cilantro.classList.add('text-purple-700');
-      cilantro.classList.add('bg-purple-200');
-      cilantro.innerHTML = '<i class="fas fa-sync-alt"></i> parsley';
-    } else {
-      let cilantro = document.getElementById('cilantro');
-      cilantro.classList.add('text-red-700');
-      cilantro.classList.add('bg-red-200');
-      cilantro.classList.remove('text-purple-700');
-      cilantro.classList.remove('bg-purple-200');
-      cilantro.innerHTML = '<i class="fas fa-times"></i> cilantro';
-    }
-    yes = !yes;
-  }
-
-  function open() {
-
-  }
-</script>
 </body>
 </html>
