@@ -114,7 +114,16 @@ $(document).ready(function() {
       "data": "https://www.jamieoliver.com/recipes/vegetables-recipes/superfood-salad/"
   };
   
+// add an event listener for the recipeButton
+$(".recipeButton").on("click", function() {
+  emptyAll();
+  // define terms
+  let searchTerm = 
+  // AJAX call
   $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
+    console.log(response);
+  });
+})
+
+
 });
