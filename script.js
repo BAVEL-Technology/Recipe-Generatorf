@@ -1,36 +1,39 @@
-var words = ['garlic', 'chicken', 'cilantro', 'brocollini', 'asparagus']
+var words = ["garlic", "chicken", "cilantro", "brocollini", "asparagus"];
 var speed = 200;
 var intervalTypeWriter = window.setInterval(typeWriter, 8000);
 var i = 0; //Keep "i" counter variable outside of typeWrite function to preserve it
 var count = 0;
 var txt = words[0];
 /*
-* sleep creates a new Promise that will wait x miliseconds to start again
-*/
+ * sleep creates a new Promise that will wait x miliseconds to start again
+ */
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 /*
-* Asyncronious funciton can run over and over again
-* typeWriter types as long as the counter is not the same as the length of the word it's typing
-*/
+ * Asyncronious funciton can run over and over again
+ * typeWriter types as long as the counter is not the same as the length of the word it's typing
+ */
 async function typeWriter(question) {
   console.log(txt);
   console.log(count);
-  if (document.querySelector('#i-have')) {
-    if (i < txt.length)
-    {
-        document.querySelector("#i-have").placeholder += txt[i];
-        i++;
-        setTimeout(typeWriter, speed);
+  if (document.querySelector("#i-have")) {
+    if (i < txt.length) {
+      document.querySelector("#i-have").placeholder += txt[i];
+      i++;
+      setTimeout(typeWriter, speed);
     } else if (i === txt.length) {
-      document.querySelector('#i-have-tags').innerHTML += `<span class="inline-block bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><i class="fas fa-times"></i> ${words[words.indexOf(txt)]}</span>`;
+      document.querySelector(
+        "#i-have-tags"
+      ).innerHTML += `<span class="inline-block bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><i class="fas fa-times"></i> ${
+        words[words.indexOf(txt)]
+      }</span>`;
       await sleep(3000);
       if (count > 3) {
         count = 0;
         i = 0;
         txt = words[0];
-        document.querySelector('#i-have-tags').innerHTML = "";
+        document.querySelector("#i-have-tags").innerHTML = "";
         document.querySelector("#i-have").placeholder = ""; //Use placeholder not value so user can still begin typing
         return;
       } else {
@@ -44,8 +47,8 @@ async function typeWriter(question) {
   }
 }
 function stopTypeWriter() {
-  document.querySelector('#i-have-tags').remove();
-   window.clearInterval(intervalTypeWriter);
+  document.querySelector("#i-have-tags").remove();
+  window.clearInterval(intervalTypeWriter);
 }
 
 // begin working JS
@@ -84,7 +87,7 @@ $(document).ready(function () {
     }
   }
 
-  // define a function that empties all DOM contents and sets all category selections to "not selected"
+  // define a function that empties all DOM contents and removes all ingredient selections
   function emptyAll() {
     $recipeOutput.empty();
     $ingrChoice.remove();
@@ -120,12 +123,23 @@ $(document).ready(function () {
     console.log("the user has typed");
   });
 
+  // add event listener for when user presses 'enter'. when this happens, the ingredient should be added as a span and the value should be sent to the ingrChoice array
+  $("input").on('keypress', function(e) {
+    let ingrInput = $(this).value;
+    if(e.which == 13) {
+      $("input").add("<div id='i-have-tags'>");
+      $("#i-have-tags").add("<span class='inline-block bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ingrChoice'>");
+      $(".ingrChoice").text(ingrInput);
+    }
+    console.log("enter was pressed in the text field");
+  });
+
   // add an event listener for the recipeButton
   $(".recipeButton").on("click", function () {
     // define terms
     let searchTerm =
       // AJAX call
-      $.ajax(settings).done(function (response) {
+      $.ajax(settings).done(function (response) {d
         console.log(response);
       });
     String.prototype.containsAny =
