@@ -4,13 +4,13 @@
   <div class="px-6 py-4">
     <div class="flex justify-between">
       <div class="font-bold text-xl mb-2">
-        ${recipie.title}
+        ${recipie.name}
         <div class="text-gray-700 text-base mb-2">
-          <span><i class="fas fa-clock"></i> ${recipie.cook-time}</span>
+          <span><i class="fas fa-clock"></i> 25 min</span>
         </div>
       </div>
       <div class="text-gray-700 text-base mb-2">
-        <span>${recipie.level}</span>
+        <span>Easy</span>
       </div>
     </div>
     <div class="mt-2 flex items-center">
@@ -38,7 +38,7 @@
   </div>
   <div class="px-6 pt-4 pb-2">
     ${recipie.ingredients.map(function (ingredient) {
-        return "<span class="inline-block ${ ? 'bg-green-200' : 'bg-red-200'} rounded-full px-3 py-1 text-sm font-semibold text-green-700 mr-2 mb-2"><i class="fas fa-check"></i>" + ingredient + "</span>"
+      return '<span class="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-blue-700 mr-2 mb-2"><i class="fas fa-check"></i>' + ingredient + '</span>';
     }).join("")}
   </div>
   </div>
