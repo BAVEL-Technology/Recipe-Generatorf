@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="output.css">
   <title>Document</title>
   <script src="https://kit.fontawesome.com/7652f157a9.js" crossorigin="anonymous"></script>
+  <!-- jquery script -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- local js script -->
+  <script src="script.js"></script>
   <style>
     .hero-pattern {
       background-color: #C3DAFE
@@ -73,7 +77,9 @@
         <div class="w-1/5"></div>
         <div class="w-3/5">
           <div class="flex justify-between">
-            <button class="w-full bg-indigo-700 text-3xl text-white font-semibold py-2 px-4 rounded border border-transparent hover:border-indigo-700 hover:text-indigo-700 hover:bg-white">Find Recipies</button>
+            <button class="w-full bg-indigo-700 text-3xl text-white font-semibold py-2 px-4 rounded border border-transparent hover:border-indigo-700 hover:text-indigo-700 hover:bg-white recipeButton">Find Recipes</button>
+            <!-- add a button that clears the current ingredient tags and stops typewriter function -->
+            <button class="w-full bg-gray-600 text-3xl text-white font-semibold py-2 px-4 left-2 rounded border border-transparent hover:border-red-700 hover:text-red-700 hover:bg-red-200 resetButton">Reset</button>
             <!-- <button onclick="moreFilters()" class="bg-white text-3xl text-indigo-700 shadow border hover:border-transparent hover:bg-indigo-700 hover:text-white border-indigo-700 font-semibold py-2 px-4 rounded">More Filters</button> -->
           </div>
         </div>
@@ -83,8 +89,8 @@
     <div class="w-1/5"></div>
   </div>
 </div>
-  <div class="m-12 flex items-center" style="margin-top: -200px;">
-    <div class="max-w-sm m-8 rounded overflow-hidden shadow-lg">
+  <div class="m-12 flex items-center recipeOutput" style="margin-top: -200px;">
+    <div class="max-w-sm m-8 rounded overflow-hidden shadow-lg recipeCard">
     <img class="w-full h-64 object-cover food" src="https://i2.wp.com/www.primaverakitchen.com/wp-content/uploads/2017/10/Roasted-Cauliflower-Primavera-Kitchen-1.jpg" alt="Sunset in the mountains">
     <div class="px-6 py-4">
       <div class="flex justify-between">
@@ -130,7 +136,7 @@
       <span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2"><i class="fas fa-times"></i> ginger</span>
     </div>
   </div>
-  <div class="max-w-sm rounded overflow-hidden shadow-lg">
+  <div class="max-w-sm rounded overflow-hidden shadow-lg recipeCard">
   <img class="w-full h-64 object-cover food" src="https://www.onceuponachef.com/images/2016/10/Cauliflower-Fried-Rice-1200x816.jpg" alt="Sunset in the mountains">
   <div class="px-6 py-4">
     <div class="flex justify-between">
