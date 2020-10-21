@@ -4,21 +4,17 @@ var intervalTypeWriter = window.setInterval(typeWriter, 8000);
 var i = 0; //Keep "i" counter variable outside of typeWrite function to preserve it
 var count = 0;
 var txt = words[0];
-
 /*
 * sleep creates a new Promise that will wait x miliseconds to start again
 */
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 /*
 * Asyncronious funciton can run over and over again
 * typeWriter types as long as the counter is not the same as the length of the word it's typing
 */
 async function typeWriter(question) {
-  console.log(txt);
-  console.log(count);
   if (document.querySelector('#i-have')) {
     if (i < txt.length)
     {
