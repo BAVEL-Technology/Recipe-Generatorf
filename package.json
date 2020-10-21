@@ -1,17 +1,25 @@
 {
-  "name": "tailwind-food",
+  "name": "Recipe-Generatorf",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "postcss.config.js",
+  "dependencies": {
+    "node-sass": "^4.14.1",
+    "tailwindcss": "^1.9.4"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-    "sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickgraffis/Recipe-Generatorf.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "node-sass": "^4.14.1",
-    "tailwindcss": "^1.9.4"
-  }
+  "bugs": {
+    "url": "https://github.com/nickgraffis/Recipe-Generatorf/issues"
+  },
+  "homepage": "https://github.com/nickgraffis/Recipe-Generatorf#readme"
 }
