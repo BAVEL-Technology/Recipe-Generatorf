@@ -15,7 +15,6 @@ function sleep(ms) {
 /*
 * Asyncronious funciton can run over and over again
 * typeWriter types as long as the counter is not the same as the length of the word it's typing
-* When the counter gets to the end of the word we "sleep", change the color of the koi, "sleep" again, then find a new word, reset the counter and reset the placeholder variable
 */
 async function typeWriter(question) {
   console.log(txt);
@@ -44,6 +43,31 @@ async function typeWriter(question) {
         return;
       }
     }
+  }
+}
+
+function stopTypeWriter() {
+  document.querySelector('#i-have-tags').remove();
+   window.clearInterval(intervalTypeWriter);
+}
+
+function loading() {
+  var ids = ['zero', 'one', 'two', 'three'];
+  for (let i = 0; i < 4; i++) {
+    let loader = document.createElement('DIV');
+    loader.class = 'w-full max-w-sm m-8 rounded overflow-hidden shadow-lg placeload bg-gray-300 loader';
+    loader.style.height = '600px';
+    loader.innerHTML = ' ';
+    loader.id = ids[i];
+    document.querySelector('#results').prepend(loader);
+  }
+}
+
+function notLoading() {
+  var ids = ['zero', 'one', 'two', 'three'];
+  for (let i = 0; i < 4; i++) {
+    let loader = document.getElementById('#' + ids[i]);
+    loader.remove();
   }
 }
 

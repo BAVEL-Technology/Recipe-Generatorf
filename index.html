@@ -8,6 +8,22 @@
   <title>Document</title>
   <script src="https://kit.fontawesome.com/7652f157a9.js" crossorigin="anonymous"></script>
   <style>
+  .loader {
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeload;
+  animation-timing-function: linear;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  }
+  @keyframes placeload {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
     .hero-pattern {
       background-color: #C3DAFE
 ;
@@ -23,26 +39,33 @@
     <div class="w-3/5">
       <p class="font-semibold tracking-widest text-center text-gray-800 pt-8" style="font-size: 150px; font-family: 'BioRhyme', serif;">BABEL</p>
       <p class="text-3xl font-semibold text-center text-gray-800 pb-20">Tell us what you have, we'll tell you <span class="bg-indigo-700 p-3 rounded transform -skew-y-6 inline-block"><i class="text-white transform skew-y-6 inline-block">whats for dinner?</i></span></p>
-      <div class="flex items-center py-2 bg-indigo-400 rounded justify-between">
-        <input id="i-have" class="text-4xl placeholder-white appearance-none bg-transparent border-none w-1/3 text-white mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="" aria-label="Full name">
+      <div class="relative flex w-full flex-wrap items-center py-2 bg-indigo-400 rounded justify-between">
+        <span class="text-green-200 z-10 h-full leading-snug text-3xl text-center text-gray-400 absolute bg-transparent rounded text-lg items-center justify-center w-8 pl-3 py-3">
+          <i class="fas fa-check"></i>
+        </span>
+        <input id="i-have" onkeyup="stopTypeWriter()" class="pl-16 text-3xl placeholder-white appearance-none bg-transparent border-none w-1/3 text-white mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="" aria-label="Full name">
+        <div id="real-have-tags">
+        </div>
         <div id="i-have-tags">
         </div>
       </div>
-      <!-- <div class="flex items-center pt-4 border-b border-blue-500 py-2 justify-between">
-        <input class="appearance-none bg-transparent border-none w-1/3 text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="I don't have or I won't eat..." aria-label="Full name">
-        <div>
-          <span class="inline-block bg-red-200 rounded px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2"><i class="fas fa-times"></i> black beans</span>
-          <span class="inline-block bg-red-200 rounded px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2"><i class="fas fa-times"></i> garlic</span>
-          <span class="inline-block bg-red-200 rounded px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2"><i class="fas fa-times"></i> black beans</span>
-          <span class="inline-block bg-red-200 rounded px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2"><i class="fas fa-times"></i> garlic</span>
+      <!-- <div id="i-dont" class="mt-4 relative flex w-full flex-wrap items-center py-2 bg-indigo-400 rounded justify-between">
+        <span class="z-10 text-red-200 h-full leading-snug text-3xl text-center text-gray-400 absolute bg-transparent rounded text-lg items-center justify-center w-8 pl-3 py-3">
+          <i class="fas fa-times"></i>
+        </span>
+        <input id="i-dont-have" class="pl-16 text-3xl placeholder-white appearance-none bg-transparent border-none w-1/3 text-white mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="I don't want..." aria-label="Full name">
+        <div id="i-dont-have-tags">
         </div>
       </div>
-      <div class="flex items-center pt-4 py-2 justify-between">
-        <input class="bg-teal-200 p-3 rounded border-none w-1/3 text-gray-700 mr-3 leading-tight focus:outline-none" type="text" placeholder="Search" aria-label="Full name">
-        <input class="bg-gray-200 p-3 rounded border-none w-1/3 text-gray-700 mr-3 leading-tight focus:outline-none" type="number" placeholder="I've only got..." aria-label="Full name">
-        <input class="bg-gray-200 p-3 rounded border-none w-1/3 text-gray-700 mr-3 leading-tight focus:outline-none" type="text" placeholder="Difficulty Level" aria-label="Full name">
-      </div> -->
-      <!-- <div class="flex flex-wrap items-center pt-4 py-2">
+      <div class="mt-4 relative flex w-full flex-wrap items-center py-2 bg-indigo-400 rounded justify-between">
+        <span class="z-10 text-indigo-200 h-full leading-snug text-3xl text-center text-gray-400 absolute bg-transparent rounded text-lg items-center justify-center w-8 pl-3 py-3">
+          <i class="fas fa-search"></i>
+        </span>
+        <input class="pl-16 text-3xl placeholder-white appearance-none bg-transparent border-none w-1/3 text-white mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Search" aria-label="Full name">
+        <div>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center pt-4 py-2">
         <span class="inline-block bg-orange-200 rounded p-4 text-md font-semibold text-orange-700 mr-2 mb-2"><i class="fas fa-check"></i> mediterranian </span>
         <span class="inline-block bg-gray-200 rounded p-4 text-md font-semibold text-gray-700 mr-2 mb-2"><i class="fas fa-times"></i> italian </span>
         <span class="inline-block bg-gray-200 rounded p-4 text-md font-semibold text-gray-700 mr-2 mb-2"><i class="fas fa-times"></i> vietnamese </span>
@@ -64,19 +87,22 @@
         <span class="inline-block bg-gray-200 rounded p-4 text-md font-semibold text-gray-700 mr-2 mb-2"><i class="fas fa-times"></i> bold </span>
         <span class="inline-block bg-orange-200 rounded p-4 text-md font-semibold text-orange-700 mr-2 mb-2"><i class="fas fa-check"></i> latin </span>
       </div> -->
-      <!-- <div class="flex items-center pt-4">
-        <button class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded" type="button">
-          Sign Up
-        </button>
-        <button class="flex-shrink-0 border-transparent border-4 text-blue-500 hover:text-blue-800 text-sm py-1 px-2 rounded" type="button">
-          Cancel
-        </button>
-      </div> -->
+      <div class="flex items-center pt-12">
+        <div class="w-1/5"></div>
+        <div class="w-3/5">
+          <div class="flex justify-between">
+            <button class="w-full bg-indigo-700 text-3xl text-white font-semibold py-2 px-4 rounded border border-transparent hover:border-indigo-700 hover:text-indigo-700 hover:bg-white">Find Recipies</button>
+            <!-- <button onclick="moreFilters()" class="bg-white text-3xl text-indigo-700 shadow border hover:border-transparent hover:bg-indigo-700 hover:text-white border-indigo-700 font-semibold py-2 px-4 rounded">More Filters</button> -->
+          </div>
+        </div>
+        <div class="w-1/5"></div>
+      </div>
     </div>
+</div>
     <div class="w-1/5"></div>
   </div>
 </div>
-  <div class="m-12 flex items-center" style="margin-top: -200px;">
+  <div class="m-12 flex items-center" style="margin-top: -200px;" id="results">
     <div class="max-w-sm m-8 rounded overflow-hidden shadow-lg">
     <img class="w-full h-64 object-cover food" src="https://i2.wp.com/www.primaverakitchen.com/wp-content/uploads/2017/10/Roasted-Cauliflower-Primavera-Kitchen-1.jpg" alt="Sunset in the mountains">
     <div class="px-6 py-4">
