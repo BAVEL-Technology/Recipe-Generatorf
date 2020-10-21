@@ -49,7 +49,6 @@ async function typeWriter(question) {
 
 typeWriter();
 
-<<<<<<< HEAD
 // begin working JS
 $(document).ready(function() {
   // define DOM elements
@@ -99,16 +98,3 @@ $(document).ready(function() {
       console.log(response);
     });
 });
-=======
-/* Get a file from directory and return it as a string*/
-function getFile(file) {
-  var x = new XMLHttpRequest();
-  x.open('GET', file, false);
-  x.send();
-  return x.responseText;
-}
-
-let file = getFile('components/recipie-card.html');
-let card = $(eval('`' + file + '`'));
-$('#recipeis-box').prepend(card);
->>>>>>> main
