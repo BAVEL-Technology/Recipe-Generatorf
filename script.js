@@ -49,7 +49,6 @@ async function typeWriter(question) {
 
 typeWriter();
 
-<<<<<<< HEAD
 // begin working JS
 $(document).ready(function() {
   // define DOM elements
@@ -70,6 +69,26 @@ $(document).ready(function() {
   // categSelectIconDefault captures the <i> html elements nested within the categSelect spans
   let categSelectIconDefault = "fas fa-times";
 
+  // define functions that will display when it's loading/not loading
+  function loading() {
+    var ids = ['zero', 'one', 'two', 'three'];
+    for (let i = 0; i < 4; i++) {
+      let loader = document.createElement('DIV');
+      loader.class = 'w-full max-w-sm m-8 rounded overflow-hidden shadow-lg placeload bg-gray-300 loader';
+      loader.style.height = '600px';
+      loader.innerHTML = ' ';
+      loader.id = ids[i];
+      document.querySelector('#results').prepend(loader);
+    }
+  }
+  function notLoading() {
+    var ids = ['zero', 'one', 'two', 'three'];
+    for (let i = 0; i < 4; i++) {
+      let loader = document.getElementById('#' + ids[i]);
+      loader.remove();
+    }
+  }
+  
   // define a function that empties all DOM contents and sets all category selections to "not selected"
   function emptyAll() {
       $recipeOutput.empty();
@@ -84,7 +103,7 @@ $(document).ready(function() {
   // we will do an AJAX call to get the response from MyCookBook.io
   const settings = {
       "async": true,
-      "crossDomain": true,sdgfsg
+      "crossDomain": true,
       "url": "https://rapidapi.p.rapidapi.com/recipes/rapidapi",
       "method": "POST",
       "headers": {
@@ -99,16 +118,3 @@ $(document).ready(function() {
       console.log(response);
     });
 });
-=======
-/* Get a file from directory and return it as a string*/
-function getFile(file) {
-  var x = new XMLHttpRequest();
-  x.open('GET', file, false);
-  x.send();
-  return x.responseText;
-}
-
-let file = getFile('components/recipie-card.html');
-let card = $(eval('`' + file + '`'));
-$('#recipeis-box').prepend(card);
->>>>>>> main
