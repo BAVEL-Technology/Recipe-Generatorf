@@ -123,6 +123,33 @@ function getFile(file) {
   return x.responseText;
 }
 
+String.prototype.containsAny = String.prototype.containsAny || function(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (this.indexOf(arr[i]) > -1) {
+      return true;
+    }
+  }
+  return false;
+};
+})
+
+function sortRecipies (recipies, ingredients) {
+  let returnRecipiesObject = [];
+  for (let i = 0; i < recipies.length; i++) {
+    let count = 0;
+    for (let j = 0; j < recipies[i].ingredients.length; j++) {
+      if (recipies[i].ingredients[i].containsAny(ingredients)) {
+        count++;
+      }
+    }
+    returnRecipiesObject.push({recipe: recipies[i], similarities: count});
+  }
+
+  returnRecipiesObject.sort((a, b) => (a.similarities > b.similarities) ? 1 : -1);
+
+  return returnRecipiesObject;
+}
+
 var ingrChoiceArray = ['apple', 'sweet potatoe', 'strawberry'];
 
 // add an event listener for the recipeButton
@@ -132,20 +159,14 @@ $(".recipeButton").on("click", function() {
   // AJAX call
   $.ajax(settings).done(function (response) {
     console.log(response);
-    let recipie = response[0];
-    let file = getFile('components/recipie-card.html?v=40');
-    let card = $(eval('`' + file + '`'));
-    $('.recipeOutput').prepend(card);
-  });
-  String.prototype.containsAny = String.prototype.containsAny || function(arr) {
-    for (var i = 0; i < arr.length; i++) {
-      if (this.indexOf(arr[i]) > -1) {
-        return true;
-      }
+    let recipies = sortRecipies(response, ingrChoiceArray);
+    for (let i = 0; i < recipies.length; i++) {
+      let recipie = recipies[i].recipie;
+      let file = getFile('components/recipie-card.html?v=40');
+      let card = $(eval('`' + file + '`'));
+      $('.recipeOutput').prepend(card);
     }
-    return false;
-  };
-})
+  });
 
 
 });
