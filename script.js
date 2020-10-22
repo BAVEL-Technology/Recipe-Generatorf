@@ -79,7 +79,7 @@ $(document).ready(function() {
       loader.remove();
     }
   }
-  
+
   // define a function that empties all DOM contents and sets all category selections to "not selected"
   function emptyAll() {
       $recipeOutput.empty();
@@ -102,7 +102,7 @@ $(document).ready(function() {
       },
       "data": "https://www.jamieoliver.com/recipes/vegetables-recipes/superfood-salad/"
   };
-  
+
 // add an event listener for the resetButton
 $(".resetButton").on("click", function() {
   emptyAll();
@@ -115,13 +115,27 @@ $("input").keydown(function() {
   console.log("the user has typed");
 });
 
+/* Get a file from directory and return it as a string*/
+function getFile(file) {
+  var x = new XMLHttpRequest();
+  x.open('GET', file, false);
+  x.send();
+  return x.responseText;
+}
+
+var ingrChoiceArray = ['apple', 'sweet potatoe', 'strawberry'];
+
 // add an event listener for the recipeButton
 $(".recipeButton").on("click", function() {
   // define terms
-  let searchTerm = 
+  let searchTerm =
   // AJAX call
   $.ajax(settings).done(function (response) {
     console.log(response);
+    let recipie = response[0];
+    let file = getFile('components/recipie-card.html?v=40');
+    let card = $(eval('`' + file + '`'));
+    $('.recipeOutput').prepend(card);
   });
   String.prototype.containsAny = String.prototype.containsAny || function(arr) {
     for (var i = 0; i < arr.length; i++) {
