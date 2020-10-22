@@ -1,16 +1,16 @@
-<div class="w-1/4">
-  <div class="max-w-sm rounded overflow-hidden shadow-lg m-6">
+<a href="${recipie.url}">
+  <div class="max-w-sm rounded overflow-hidden shadow-lg">
   <img class="w-full h-64 object-cover food" src="${recipie.images[0]}" alt="Sunset in the mountains">
   <div class="px-6 py-4">
     <div class="flex justify-between">
       <div class="font-bold text-xl mb-2">
-        <a href="${recipie.url}">${recipie.name}</a>
+        ${recipie.title}
         <div class="text-gray-700 text-base mb-2">
-          <span><i class="fas fa-clock"></i> 25 min</span>
+          <span><i class="fas fa-clock"></i> ${recipie.cook-time}</span>
         </div>
       </div>
       <div class="text-gray-700 text-base mb-2">
-        <span>Easy</span>
+        <span>${recipie.level}</span>
       </div>
     </div>
     <div class="mt-2 flex items-center">
@@ -36,12 +36,16 @@
       ${recipie.description}
     </p>
   </div>
-  <div class="px-6 pt-4 pb-2 overflow-scroll" style="max-height: 300px;">
+  <div class="px-6 pt-4 pb-2">
     ${recipie.ingredients.map(function (ingredient) {
-      let color = ingredient.containsAny(ingrChoiceArray) ? 'green' : 'red';
-      let icon = ingredient.containsAny(ingrChoiceArray) ? 'check' : 'times';
-      return '<span class="inline-block bg-' + color + '-200 rounded-full px-3 py-1 text-sm font-semibold text-' + color + '-700 mr-2 mb-2"><i class="fas fa-' + icon + '"></i>&nbsp' + ingredient + '</span>';
+        return '<span class="inline-block ${ingredient.containsAny(ingrChoiceArray) ? 'bg-green-200' : 'bg-red-200'} rounded-full px-3 py-1 text-sm font-semibold ${ingredient.containsAny(ingrChoiceArray) ? 'bg-green-700' : 'bg-red-700'} mr-2 mb-2"><i class="fas fa-${ingredient.containsAny(ingrChoiceArray) ? 'check' : 'times'}"></i>' + ingredient + '</span>';
     }).join("")}
+    <span class="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-green-700 mr-2 mb-2"><i class="fas fa-check"></i> garlic</span>
+    <span class="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-green-700 mr-2 mb-2"><i class="fas fa-check"></i> cilantro</span>
+    <span class="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-green-700 mr-2 mb-2"><i class="fas fa-check"></i> garlic</span>
+    <span class="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-green-700 mr-2 mb-2"><i class="fas fa-check"></i> cauliflower</span>
+    <span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2" onclick="cilantro();" id="cilantro"><i class="fas fa-times"></i> cilantro</span>
+    <span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2"><i class="fas fa-times"></i> ginger</span>
   </div>
   </div>
-</div>
+</a>

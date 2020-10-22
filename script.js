@@ -86,8 +86,7 @@ $(document).ready(function () {
       loader.remove();
     }
   }
-
-  // define a function that empties all DOM contents and removes all ingredient selections
+  
   function emptyAll() {
     $recipeOutput.empty();
     $ingrChoice.remove();
@@ -111,12 +110,69 @@ $(document).ready(function () {
       "https://www.jamieoliver.com/recipes/vegetables-recipes/superfood-salad/",
   };
 
+// add an event listener for the resetButton
+$(".resetButton").on("click", function() {
+  emptyAll();
+  console.log("The reset button was clicked")
+})
+
   // add an event listener for the resetButton
   $(".resetButton").on("click", function () {
     emptyAll();
     console.log("The reset button was clicked");
   });
 
+/* Get a file from directory and return it as a string*/
+function getFile(file) {
+  var x = new XMLHttpRequest();
+  x.open('GET', file, false);
+  x.send();
+  return x.responseText;
+}
+
+String.prototype.containsAny = String.prototype.containsAny || function(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    if (this.indexOf(arr[i]) > -1) {
+      return true;
+    }
+  }
+  return false;
+};
+})
+
+function sortRecipies (recipies, ingredients) {
+  let returnRecipiesObject = [];
+  for (let i = 0; i < recipies.length; i++) {
+    let count = 0;
+    for (let j = 0; j < recipies[i].ingredients.length; j++) {
+      if (recipies[i].ingredients[i].containsAny(ingredients)) {
+        count++;
+      }
+    }
+    returnRecipiesObject.push({recipe: recipies[i], similarities: count});
+  }
+
+  returnRecipiesObject.sort((a, b) => (a.similarities > b.similarities) ? 1 : -1);
+
+  return returnRecipiesObject;
+}
+
+var ingrChoiceArray = ['apple', 'sweet potatoe', 'strawberry'];
+
+// add an event listener for the recipeButton
+$(".recipeButton").on("click", function() {
+  // define terms
+  let searchTerm =
+  // AJAX call
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    let recipies = sortRecipies(response, ingrChoiceArray);
+    for (let i = 0; i < recipies.length; i++) {
+      let recipie = recipies[i].recipie;
+      let file = getFile('components/recipie-card.html?v=40');
+      let card = $(eval('`' + file + '`'));
+      $('.recipeOutput').prepend(card);
+    }
   // add an event listener for if the user starts typing in the text field. if user types, stop typewriter and clear all entered ingredients
   $("input").keydown(function () {
     stopTypeWriter();
