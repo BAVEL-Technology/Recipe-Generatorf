@@ -1,3 +1,4 @@
+console.log('change');
 var words = ["garlic", "chicken", "cilantro", "brocollini", "asparagus"];
 var speed = 200;
 var intervalTypeWriter = window.setInterval(typeWriter, 8000);
@@ -30,8 +31,6 @@ function sleep(ms) {
  * typeWriter types as long as the counter is not the same as the length of the word it's typing
  */
 async function typeWriter(question) {
-  console.log(txt);
-  console.log(count);
   if (document.querySelector("#i-have")) {
     if (i < txt.length) {
       document.querySelector("#i-have").placeholder += txt[i];
@@ -206,19 +205,58 @@ $("input").keydown(function (event) {
   }
 });
 
+var cuisine = [];
+
+$(".cuisine").on("click", function() {
+  if (!cuisine.includes($(this).text())) {
+    cuisine.push($(this).text());
+    $(this).removeClass('bg-indigo-200 text-indigo-700 border-indigo-700');
+    $(this).addClass('bg-green-200 text-green-700 border-green-700');
+  } else {
+    let index = cuisine.indexOf($(this).text());
+    cuisine.splice(index, 1);
+    $(this).removeClass('bg-green-200 text-green-700 border-green-700');
+    $(this).addClass('border-indigo-700 bg-indigo-200 text-indigo-700');
+  }
+  console.log(cuisine);
+});
+
 // add an event listener for the recipeButton
 $(".recipeButton").on("click", function () {
   // define terms
   let searchTerm =
-    // AJAX call
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-      let recipies = sortRecipies(response, ingrChoiceArray);
-      for (let i = 0; i < recipies.length; i++) {
-        let recipie = recipies[i].recipie;
-        let file = getFile("components/recipie-card.html?v=40");
-        let card = $(eval("`" + file + "`"));
-        $(".recipeOutput").prepend(card);
-      }
-    });
+
+  // AJAX call
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    let recipies = sortRecipies(response.hits, ingrChoiceArray);
+    console.log(recipies);
+    for (let i = 0; i < recipies.length; i++) {
+      console.log(recipies[i]);
+      let recipie = recipies[i].recipe;
+      let file = getFile('components/recipie-card.html?v=40');
+      let card = $(eval('`' + file + '`'));
+      $('.recipeOutput').prepend(card);
+    }
+  // add an event listener for if the user starts typing in the text field. if user types, stop typewriter and clear all entered ingredients
+  $("input").keydown(function () {
+    stopTypeWriter();
+    console.log("the user has typed");
+  });
+
+  // add event listener for when user presses 'enter'. when this happens, the ingredient should be added as a span and the value should be sent to the ingrChoice array
+  $("input").on('keypress', function(e) {
+    let ingrInput = $(this).value;
+    if(e.which == 13) {
+      $("input").add("<div id='i-have-tags'>");
+      $("#i-have-tags").add("<span class='inline-block bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ingrChoice'>");
+      $(".ingrChoice").text(ingrInput);
+    }
+    console.log("enter was pressed in the text field");
+  });
+  });
 });
+
+window.showFilters = function () {
+  $('#cusineType').css("visibility", "visible")
+}
