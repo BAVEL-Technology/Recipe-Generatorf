@@ -196,3 +196,5 @@ $(".recipeButton").on("click", function() {
     }
     console.log("enter was pressed in the text field");
   });
+  });
+});
