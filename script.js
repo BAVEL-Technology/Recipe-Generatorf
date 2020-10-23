@@ -144,12 +144,12 @@ function sortRecipies (recipies, ingredients) {
   let returnRecipiesObject = [];
   for (let i = 0; i < recipies.length; i++) {
     let count = 0;
-    for (let j = 0; j < recipies[i].ingredients.length; j++) {
-      if (recipies[i].ingredients[i].containsAny(ingredients)) {
+    for (let j = 0; j < recipies[i].recipe.ingredientLines.length; j++) {
+      if (recipies[i].recipe.ingredientLines[i].containsAny(ingredients)) {
         count++;
       }
     }
-    returnRecipiesObject.push({recipe: recipies[i], similarities: count});
+    returnRecipiesObject.push({recipe: recipies[i].recipe, similarities: count});
   }
 
   returnRecipiesObject.sort((a, b) => (a.similarities > b.similarities) ? 1 : -1);
