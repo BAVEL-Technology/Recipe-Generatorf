@@ -176,11 +176,12 @@ var ingrChoiceArray = [];
 $("input").click(function (event) {
   let iHaveTagsValue = $("#i-have-tags").val().trim();
   if ((iHaveTagsValue === 0) || (iHaveTagsValue.length === 0)) {
+    window.clearInterval(intervalTypeWriter);
     return;
   } else {
     stopTypeWriter();
     console.log("the user has clicked in the input field");
-  }
+  };
 });
 
 // add event listener for when user presses 'enter'. when this happens, the ingredient should be added as a span and the value should be sent to the ingrChoice array
@@ -193,18 +194,15 @@ $("input").keydown(function (event) {
     ingrChoiceArray.push(inputValue);
     console.log(ingrChoiceArray);
     // create a for loop so that we can append every item from the ingrChoiceArray into userInputDiv as a span
-    for (var i = 0; i <= ingrChoiceArray; i++) {
       // create a new span
-      let span = $("<span><i class='fas fa-times'></i></span>");
+      let span = $(`<span><i class='fas fa-times m-1'></i>${inputValue}</span>`);
       // in the i-have-tags div, prepend that span
-      $(".userInputDiv").prepend(span);
+      $(".userInputDiv").append(span);
       // add classes to that span
       span.addClass(
-        "absolute right-0 bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ingrChoice"
+        "right-0 bg-white rounded px-3 py-1 text-sm font-semibold m-1 text-gray-700 ingrChoice"
       );
-      // insert text into the span
-      $(".ingrChoice").text(inputValue[i]);
-    }
+      // clear the value
   }
 });
 
