@@ -1,3 +1,4 @@
+console.log('change');
 var words = ["garlic", "chicken", "cilantro", "brocollini", "asparagus"];
 var speed = 200;
 var intervalTypeWriter = window.setInterval(typeWriter, 8000);
@@ -162,6 +163,22 @@ function sortRecipies (recipies, ingredients) {
   return returnRecipiesObject;
 }
 
+var cuisine = [];
+
+$(".cuisine").on("click", function() {
+  if (!cuisine.includes($(this).text())) {
+    cuisine.push($(this).text());
+    $(this).removeClass('bg-indigo-200 text-indigo-700 border-indigo-700');
+    $(this).addClass('bg-green-200 text-green-700 border-green-700');
+  } else {
+    let index = cuisine.indexOf($(this).text());
+    cuisine.splice(index, 1);
+    $(this).removeClass('bg-green-200 text-green-700 border-green-700');
+    $(this).addClass('border-indigo-700 bg-indigo-200 text-indigo-700');
+  }
+  console.log(cuisine);
+});
+
 var ingrChoiceArray = ['apple', 'sweet potatoe', 'strawberry'];
 
 // add an event listener for the recipeButton
@@ -198,3 +215,7 @@ $(".recipeButton").on("click", function() {
   });
   });
 });
+
+window.showFilters = function () {
+  $('#cusineType').css("visibility", "visible")
+}
