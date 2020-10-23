@@ -189,24 +189,3 @@ $(".recipeButton").on("click", function() {
     }
     console.log("enter was pressed in the text field");
   });
-
-  // add an event listener for the recipeButton
-  $(".recipeButton").on("click", function () {
-    // define terms
-    let searchTerm =
-      // AJAX call
-      $.ajax(settings).done(function (response) {d
-        console.log(response);
-      });
-    String.prototype.containsAny =
-      String.prototype.containsAny ||
-      function (arr) {
-        for (var i = 0; i < arr.length; i++) {
-          if (this.indexOf(arr[i]) > -1) {
-            return true;
-          }
-        }
-        return false;
-      };
-  });
-});
