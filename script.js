@@ -206,8 +206,12 @@ $("input").keydown(function (event) {
 });
 
 // add event listener for the fa-times icons that are within the spans
-$(".fa-times").on("click", function(event) {
-
+$(document).on('click', '.fa-times', function() {
+  var remove_Item = $(this).closest('span').text();
+  ingrChoiceArray = $.grep(ingrChoiceArray, function(value) {
+    return value != remove_Item;
+  });
+  $(this).closest('span').remove();
 });
 
 var cuisine = [];
