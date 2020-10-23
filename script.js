@@ -29,8 +29,6 @@ function sleep(ms) {
  * typeWriter types as long as the counter is not the same as the length of the word it's typing
  */
 async function typeWriter(question) {
-  console.log(txt);
-  console.log(count);
   if (document.querySelector("#i-have")) {
     if (i < txt.length) {
       document.querySelector("#i-have").placeholder += txt[i];
@@ -100,7 +98,7 @@ $(document).ready(function () {
       loader.remove();
     }
   }
-  
+
   function emptyAll() {
     $recipeOutput.empty();
     $ingrChoice.remove();
@@ -173,9 +171,11 @@ $(".recipeButton").on("click", function() {
   // AJAX call
   $.ajax(settings).done(function (response) {
     console.log(response);
-    let recipies = sortRecipies(response, ingrChoiceArray);
+    let recipies = sortRecipies(response.hits, ingrChoiceArray);
+    console.log(recipies);
     for (let i = 0; i < recipies.length; i++) {
-      let recipie = recipies[i].recipie;
+      console.log(recipies[i]);
+      let recipie = recipies[i].recipe;
       let file = getFile('components/recipie-card.html?v=40');
       let card = $(eval('`' + file + '`'));
       $('.recipeOutput').prepend(card);
