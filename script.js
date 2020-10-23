@@ -93,13 +93,26 @@ $(document).ready(function () {
   // categSelectIconDefault captures the <i> html elements nested within the categSelect spans
   let categSelectIconDefault = "fas fa-times";
 
-  function emptyAll() {
-    $recipeOutput.empty();
-    $ingrChoice.remove();
+  // define functions that will display when it's loading/not loading
+  function loading() {
+    var ids = ["zero", "one", "two", "three"];
+    for (let i = 0; i < 4; i++) {
+      let loader = document.createElement("DIV");
+      loader.class =
+        "w-full max-w-sm m-8 rounded overflow-hidden shadow-lg placeload bg-gray-300 loader";
+      loader.style.height = "600px";
+      loader.innerHTML = " ";
+      loader.id = ids[i];
+      document.querySelector("#results").prepend(loader);
+    }
   }
-
-  // when the page loads, set all DOM contents to default values. We will comment this out so that we can continue working with the DOM
-  emptyAll();
+  function notLoading() {
+    var ids = ["zero", "one", "two", "three"];
+    for (let i = 0; i < 4; i++) {
+      let loader = document.getElementById("#" + ids[i]);
+      loader.remove();
+    }
+  }
 
   // we will do an AJAX call to get the response from MyCookBook.io
   //   const settings = {
@@ -117,16 +130,6 @@ $(document).ready(function () {
   //   };
 
   // add an event listener for the resetButton
-  $(".resetButton").on("click", function () {
-    emptyAll();
-    console.log("The reset button was clicked");
-  });
-
-  // add an event listener for the resetButton
-  $(".resetButton").on("click", function () {
-    emptyAll();
-    console.log("The reset button was clicked");
-  });
 
   String.prototype.containsAny =
     String.prototype.containsAny ||
@@ -138,6 +141,14 @@ $(document).ready(function () {
       }
       return false;
     };
+});
+
+$(".resetButton").on("click", function () {
+  window.clearInterval(intervalTypeWriter);
+  $(".userInputDiv").find("span").remove();
+  $("input").val("")
+  ingrChoiceArray = [];
+  console.log("The reset button was clicked" + ingrChoiceArray);
 });
 
 function sortRecipies(recipies, ingredients) {
