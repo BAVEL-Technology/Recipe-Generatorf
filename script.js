@@ -194,7 +194,7 @@ $("input").keydown(function (event) {
     console.log(ingrChoiceArray);
     // create a for loop so that we can append every item from the ingrChoiceArray into userInputDiv as a span
       // create a new span
-      let span = $(`<span><i class='fas fa-times m-1'></i>${inputValue}</span>`);
+      let span = $(`<span><i class='fas fa-times m-1 cursor-pointer'></i>${inputValue}</span>`);
       // in the i-have-tags div, prepend that span
       $(".userInputDiv").append(span);
       // add classes to that span
@@ -203,6 +203,15 @@ $("input").keydown(function (event) {
       );
       // clear the value
   }
+});
+
+// add event listener for the fa-times icons that are within the spans
+$(document).on('click', '.fa-times', function() {
+  var remove_Item = $(this).closest('span').text();
+  ingrChoiceArray = $.grep(ingrChoiceArray, function(value) {
+    return value != remove_Item;
+  });
+  $(this).closest('span').remove();
 });
 
 var cuisine = [];
