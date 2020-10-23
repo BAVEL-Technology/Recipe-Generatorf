@@ -6,11 +6,26 @@ var i = 0; //Keep "i" counter variable outside of typeWrite function to preserve
 var count = 0;
 var txt = words[0];
 
-const settings = {
-  url:
-    "https://api.edamam.com/search?q=chicken&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567&from=0&to=3",
-  method: "GET",
-};
+// define functions that will display when it's loading/not loading
+function loading() {
+  var ids = ["zero", "one", "two", "three"];
+  for (let i = 0; i < 4; i++) {
+    let loader = document.createElement("DIV");
+    loader.class =
+      "w-full max-w-sm m-8 rounded overflow-hidden shadow-lg placeload bg-gray-300 loader";
+    loader.style.height = "600px";
+    loader.innerHTML = " ";
+    loader.id = ids[i];
+    document.querySelector(".recipeOutput").prepend(loader);
+  }
+}
+function notLoading() {
+  var ids = ["zero", "one", "two", "three"];
+  for (let i = 0; i < 4; i++) {
+    let loader = document.getElementById("#" + ids[i]);
+    loader.remove();
+  }
+}
 
 /* Get a file from directory and return it as a string*/
 function getFile(file) {
@@ -77,27 +92,6 @@ $(document).ready(function () {
     "inline-block bg-gray-200 rounded p-4 text-md font-semibold text-gray-700 mr-2 mb-2 categSelect";
   // categSelectIconDefault captures the <i> html elements nested within the categSelect spans
   let categSelectIconDefault = "fas fa-times";
-
-  // define functions that will display when it's loading/not loading
-  function loading() {
-    var ids = ["zero", "one", "two", "three"];
-    for (let i = 0; i < 4; i++) {
-      let loader = document.createElement("DIV");
-      loader.class =
-        "w-full max-w-sm m-8 rounded overflow-hidden shadow-lg placeload bg-gray-300 loader";
-      loader.style.height = "600px";
-      loader.innerHTML = " ";
-      loader.id = ids[i];
-      document.querySelector("#results").prepend(loader);
-    }
-  }
-  function notLoading() {
-    var ids = ["zero", "one", "two", "three"];
-    for (let i = 0; i < 4; i++) {
-      let loader = document.getElementById("#" + ids[i]);
-      loader.remove();
-    }
-  }
 
   function emptyAll() {
     $recipeOutput.empty();
@@ -247,11 +241,18 @@ $(".dish").on("click", function() {
 
 // add an event listener for the recipeButton
 $(".recipeButton").on("click", function () {
+  var apiURLCall = "https://api.edamam.com/search?q=chicken&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567" + cuisine.join('') + "&from=0&to=10";
+  var settings = {
+    url:
+      apiURLCall,
+    method: "GET",
+  };
   // define terms
   let searchTerm =
-
+  loading();
   // AJAX call
   $.ajax(settings).done(function (response) {
+    console.log(settings.url);
     console.log(response);
     let recipies = sortRecipies(response.hits, ingrChoiceArray);
     console.log(recipies);
