@@ -6,14 +6,15 @@ var count = 0;
 var txt = words[0];
 
 const settings = {
-    "url": "https://api.edamam.com/search?q=chicken&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567&from=0&to=3",
-    "method": "GET"
+  url:
+    "https://api.edamam.com/search?q=chicken&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567&from=0&to=3",
+  method: "GET",
 };
 
 /* Get a file from directory and return it as a string*/
 function getFile(file) {
   var x = new XMLHttpRequest();
-  x.open('GET', file, false);
+  x.open("GET", file, false);
   x.send();
   return x.responseText;
 }
@@ -70,8 +71,6 @@ $(document).ready(function () {
   // define DOM elements
   // recipeOutput is where we'll insert new recipe search result cards
   let $recipeOutput = $(".recipeOutput");
-  // recipeCard gathers the main display cards of each seperate recipe
-  let $recipeCard = $(".recipeCard");
   // ingrChoice gathers each individual ingrChoice span
   let $ingrChoice = $(".ingrChoice");
   // categSelectDefault contains the class value for a default category selection span
@@ -100,7 +99,7 @@ $(document).ready(function () {
       loader.remove();
     }
   }
-  
+
   function emptyAll() {
     $recipeOutput.empty();
     $ingrChoice.remove();
@@ -110,25 +109,19 @@ $(document).ready(function () {
   emptyAll();
 
   // we will do an AJAX call to get the response from MyCookBook.io
-//   const settings = {
-//     async: true,
-//     crossDomain: true,
-//     url: "https://rapidapi.p.rapidapi.com/recipes/rapidapi",
-//     method: "POST",
-//     headers: {
-//       "content-type": "application/xml",
-//       "x-rapidapi-host": "mycookbook-io1.p.rapidapi.com",
-//       "x-rapidapi-key": "b479ca82e3msh01de663de6e90a8p15563ajsnd44658ea890a",
-//     },
-//     data:
-//       "https://www.jamieoliver.com/recipes/vegetables-recipes/superfood-salad/",
-//   };
-
-// add an event listener for the resetButton
-$(".resetButton").on("click", function() {
-  emptyAll();
-  console.log("The reset button was clicked")
-})
+  //   const settings = {
+  //     async: true,
+  //     crossDomain: true,
+  //     url: "https://rapidapi.p.rapidapi.com/recipes/rapidapi",
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/xml",
+  //       "x-rapidapi-host": "mycookbook-io1.p.rapidapi.com",
+  //       "x-rapidapi-key": "b479ca82e3msh01de663de6e90a8p15563ajsnd44658ea890a",
+  //     },
+  //     data:
+  //       "https://www.jamieoliver.com/recipes/vegetables-recipes/superfood-salad/",
+  //   };
 
   // add an event listener for the resetButton
   $(".resetButton").on("click", function () {
@@ -136,18 +129,25 @@ $(".resetButton").on("click", function() {
     console.log("The reset button was clicked");
   });
 
+  // add an event listener for the resetButton
+  $(".resetButton").on("click", function () {
+    emptyAll();
+    console.log("The reset button was clicked");
+  });
 
-String.prototype.containsAny = String.prototype.containsAny || function(arr) {
-  for (var i = 0; i < arr.length; i++) {
-    if (this.indexOf(arr[i]) > -1) {
-      return true;
-    }
-  }
-  return false;
-};
-})
+  String.prototype.containsAny =
+    String.prototype.containsAny ||
+    function (arr) {
+      for (var i = 0; i < arr.length; i++) {
+        if (this.indexOf(arr[i]) > -1) {
+          return true;
+        }
+      }
+      return false;
+    };
+});
 
-function sortRecipies (recipies, ingredients) {
+function sortRecipies(recipies, ingredients) {
   let returnRecipiesObject = [];
   for (let i = 0; i < recipies.length; i++) {
     let count = 0;
@@ -156,45 +156,71 @@ function sortRecipies (recipies, ingredients) {
         count++;
       }
     }
-    returnRecipiesObject.push({recipe: recipies[i].recipe, similarities: count});
+    returnRecipiesObject.push({
+      recipe: recipies[i].recipe,
+      similarities: count,
+    });
   }
 
-  returnRecipiesObject.sort((a, b) => (a.similarities > b.similarities) ? 1 : -1);
+  returnRecipiesObject.sort((a, b) =>
+    a.similarities > b.similarities ? 1 : -1
+  );
 
   return returnRecipiesObject;
 }
 
-var ingrChoiceArray = ['apple', 'sweet potatoe', 'strawberry'];
+// inredient choices will be pushed into here
+var ingrChoiceArray = [];
+
+// add an event listener for if the user clicks in the text field. stop typewriter and clear all entered ingredients
+$("input").click(function (event) {
+  let iHaveTagsValue = $("#i-have-tags").val().trim();
+  if ((iHaveTagsValue === 0) || (iHaveTagsValue.length === 0)) {
+    return;
+  } else {
+    stopTypeWriter();
+    console.log("the user has clicked in the input field");
+  }
+});
+
+// add event listener for when user presses 'enter'. when this happens, the ingredient should be added as a span and the value should be sent to the ingrChoice array
+$("input").keydown(function (event) {
+  if (event.keyCode == 13) {
+    event.preventDefault();
+    // gather value from input field
+    let inputValue = $("input").val();
+    // push inputValue text into ingrChoiceArray
+    ingrChoiceArray.push(inputValue);
+    console.log(ingrChoiceArray);
+    // create a for loop so that we can append every item from the ingrChoiceArray into userInputDiv as a span
+    for (var i = 0; i <= ingrChoiceArray; i++) {
+      // create a new span
+      let span = $("<span><i class='fas fa-times'></i></span>");
+      // in the i-have-tags div, prepend that span
+      $(".userInputDiv").prepend(span);
+      // add classes to that span
+      span.addClass(
+        "absolute right-0 bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ingrChoice"
+      );
+      // insert text into the span
+      $(".ingrChoice").text(inputValue[i]);
+    }
+  }
+});
 
 // add an event listener for the recipeButton
-$(".recipeButton").on("click", function() {
+$(".recipeButton").on("click", function () {
   // define terms
   let searchTerm =
-  // AJAX call
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    let recipies = sortRecipies(response, ingrChoiceArray);
-    for (let i = 0; i < recipies.length; i++) {
-      let recipie = recipies[i].recipie;
-      let file = getFile('components/recipie-card.html?v=40');
-      let card = $(eval('`' + file + '`'));
-      $('.recipeOutput').prepend(card);
-    }
-  // add an event listener for if the user starts typing in the text field. if user types, stop typewriter and clear all entered ingredients
-  $("input").keydown(function () {
-    stopTypeWriter();
-    console.log("the user has typed");
-  });
-
-  // add event listener for when user presses 'enter'. when this happens, the ingredient should be added as a span and the value should be sent to the ingrChoice array
-  $("input").on('keypress', function(e) {
-    let ingrInput = $(this).value;
-    if(e.which == 13) {
-      $("input").add("<div id='i-have-tags'>");
-      $("#i-have-tags").add("<span class='inline-block bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ingrChoice'>");
-      $(".ingrChoice").text(ingrInput);
-    }
-    console.log("enter was pressed in the text field");
-  });
-  });
+    // AJAX call
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      let recipies = sortRecipies(response, ingrChoiceArray);
+      for (let i = 0; i < recipies.length; i++) {
+        let recipie = recipies[i].recipie;
+        let file = getFile("components/recipie-card.html?v=40");
+        let card = $(eval("`" + file + "`"));
+        $(".recipeOutput").prepend(card);
+      }
+    });
 });
