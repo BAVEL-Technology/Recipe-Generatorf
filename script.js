@@ -99,13 +99,6 @@ $(document).ready(function () {
     }
   }
 
-  function emptyAll() {
-    $recipeOutput.empty();
-    $ingrChoice.remove();
-  }
-
-  // when the page loads, set all DOM contents to default values. We will comment this out so that we can continue working with the DOM
-  emptyAll();
 
   // we will do an AJAX call to get the response from MyCookBook.io
   //   const settings = {
@@ -123,16 +116,6 @@ $(document).ready(function () {
   //   };
 
   // add an event listener for the resetButton
-  $(".resetButton").on("click", function () {
-    emptyAll();
-    console.log("The reset button was clicked");
-  });
-
-  // add an event listener for the resetButton
-  $(".resetButton").on("click", function () {
-    emptyAll();
-    console.log("The reset button was clicked");
-  });
 
   String.prototype.containsAny =
     String.prototype.containsAny ||
@@ -144,6 +127,14 @@ $(document).ready(function () {
       }
       return false;
     };
+});
+
+$(".resetButton").on("click", function () {
+  window.clearInterval(intervalTypeWriter);
+  $(".userInputDiv").find("span").remove();
+  $("input").val("")
+  ingrChoiceArray = [];
+  console.log("The reset button was clicked" + ingrChoiceArray);
 });
 
 function sortRecipies(recipies, ingredients) {
