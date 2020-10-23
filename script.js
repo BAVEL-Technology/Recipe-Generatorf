@@ -4,6 +4,20 @@ var intervalTypeWriter = window.setInterval(typeWriter, 8000);
 var i = 0; //Keep "i" counter variable outside of typeWrite function to preserve it
 var count = 0;
 var txt = words[0];
+
+const settings = {
+    "url": "https://api.edamam.com/search?q=chicken&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567&from=0&to=3",
+    "method": "GET"
+};
+
+/* Get a file from directory and return it as a string*/
+function getFile(file) {
+  var x = new XMLHttpRequest();
+  x.open('GET', file, false);
+  x.send();
+  return x.responseText;
+}
+
 /*
  * sleep creates a new Promise that will wait x miliseconds to start again
  */
@@ -96,19 +110,19 @@ $(document).ready(function () {
   emptyAll();
 
   // we will do an AJAX call to get the response from MyCookBook.io
-  const settings = {
-    async: true,
-    crossDomain: true,
-    url: "https://rapidapi.p.rapidapi.com/recipes/rapidapi",
-    method: "POST",
-    headers: {
-      "content-type": "application/xml",
-      "x-rapidapi-host": "mycookbook-io1.p.rapidapi.com",
-      "x-rapidapi-key": "b479ca82e3msh01de663de6e90a8p15563ajsnd44658ea890a",
-    },
-    data:
-      "https://www.jamieoliver.com/recipes/vegetables-recipes/superfood-salad/",
-  };
+//   const settings = {
+//     async: true,
+//     crossDomain: true,
+//     url: "https://rapidapi.p.rapidapi.com/recipes/rapidapi",
+//     method: "POST",
+//     headers: {
+//       "content-type": "application/xml",
+//       "x-rapidapi-host": "mycookbook-io1.p.rapidapi.com",
+//       "x-rapidapi-key": "b479ca82e3msh01de663de6e90a8p15563ajsnd44658ea890a",
+//     },
+//     data:
+//       "https://www.jamieoliver.com/recipes/vegetables-recipes/superfood-salad/",
+//   };
 
 // add an event listener for the resetButton
 $(".resetButton").on("click", function() {
@@ -122,13 +136,6 @@ $(".resetButton").on("click", function() {
     console.log("The reset button was clicked");
   });
 
-/* Get a file from directory and return it as a string*/
-function getFile(file) {
-  var x = new XMLHttpRequest();
-  x.open('GET', file, false);
-  x.send();
-  return x.responseText;
-}
 
 String.prototype.containsAny = String.prototype.containsAny || function(arr) {
   for (var i = 0; i < arr.length; i++) {
