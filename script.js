@@ -206,6 +206,7 @@ $("input").keydown(function (event) {
 });
 
 var cuisine = [];
+var dish = [];
 
 $(".cuisine").on("click", function() {
   if (!cuisine.includes($(this).text())) {
@@ -219,6 +220,20 @@ $(".cuisine").on("click", function() {
     $(this).addClass('border-indigo-700 bg-indigo-200 text-indigo-700');
   }
   console.log(cuisine);
+});
+
+$(".dish").on("click", function() {
+  if (!dish.includes($(this).text())) {
+    dish.push($(this).text());
+    $(this).removeClass('bg-purple-200 text-purple-700 border-purple-700');
+    $(this).addClass('bg-green-200 text-green-700 border-green-700');
+  } else {
+    let index = dish.indexOf($(this).text());
+    dish.splice(index, 1);
+    $(this).removeClass('bg-green-200 text-green-700 border-green-700');
+    $(this).addClass('border-purple-700 bg-purple-200 text-purple-700');
+  }
+  console.log(dish);
 });
 
 // add an event listener for the recipeButton
