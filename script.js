@@ -145,7 +145,7 @@ $(document).ready(function () {
 
 $(".resetButton").on("click", function () {
   window.clearInterval(intervalTypeWriter);
-  $(".userInputDiv").find("span").remove();
+  $(".userInputDiv").find(".ingrChoice").remove();
   $("input").val("")
   ingrChoiceArray = [];
   console.log("The reset button was clicked" + ingrChoiceArray);
