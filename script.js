@@ -314,7 +314,7 @@ function prettyfy (str) {
   return str.replace('-', ' ');
 }
 
-$(".ingredient").on('click', function () {
+$("body").on('click', ".ingredient", function () {
   var apiURLCallIngredients = 'https://bon-api.com/api/v1/ingredient-alternatives/' + ingredientify($(this).text());
 
   var settingsIngredients = {
