@@ -145,7 +145,7 @@ $(document).ready(function () {
 
 $(".resetButton").on("click", function () {
   window.clearInterval(intervalTypeWriter);
-  $(".userInputDiv").find("span").remove();
+  $(".userInputDiv").find(".ingrChoice").remove();
   $("input").val("")
   ingrChoiceArray = [];
   console.log("The reset button was clicked" + ingrChoiceArray);
@@ -252,45 +252,53 @@ $(".dish").on("click", function() {
 
 // add an event listener for the recipeButton
 $(".recipeButton").on("click", function () {
-  var apiURLCall = "https://api.edamam.com/search?q=" + ingrChoiceArray[0] + "&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567" + cuisine.join('') + "&from=0&to=10";
-  var settings = {
-    url:
-      apiURLCall,
+  // if user has not entered any ingredients, display a warning that they must enter at least 1 ingredient
+  if ((ingrChoiceArray.length === 0) && ($(".inputWarning").length == 0 )) {
+    $(".userButtons").before("<div class='inputWarning'></div>");
+    $(".inputWarning").text("You must enter at least one ingredient")
+    $(".inputWarning").addClass("text-center font-medium rounded-full border-solid border-2 border-red-400 bg-red-200 text-red-700 py-2 px-4")
+  } else {
+    $(".inputWarning").remove();
+    var apiURLCall = "https://api.edamam.com/search?q=chicken&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567" + cuisine.join('') + "&from=0&to=10";
+    var settings = {
+      url:
+        apiURLCall,
       method: "GET",
+    };
+    // define terms
+    let searchTerm =
+    loading();
+    // AJAX call
+    $.ajax(settings).done(function (response) {
+      console.log(settings.url);
+      console.log(response);
+      let recipies = sortRecipies(response.hits, ingrChoiceArray);
+      console.log(recipies);
+      for (let i = 0; i < recipies.length; i++) {
+        console.log(recipies[i]);
+        let recipie = recipies[i].recipe;
+        let file = getFile('components/recipie-card.html?v=40');
+        let card = $(eval('`' + file + '`'));
+        $('.recipeOutput').prepend(card);
+      }
+      // add an event listener for if the user starts typing in the text field. if user types, stop typewriter and clear all entered ingredients
+    $("input").keydown(function () {
+      stopTypeWriter();
+      console.log("the user has typed");
+    });
+  
+    // add event listener for when user presses 'enter'. when this happens, the ingredient should be added as a span and the value should be sent to the ingrChoice array
+    $("input").on('keypress', function(e) {
+      let ingrInput = $(this).value;
+      if(e.which == 13) {
+        $("input").add("<div id='i-have-tags'>");
+        $("#i-have-tags").add("<span class='inline-block bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ingrChoice'>");
+        $(".ingrChoice").text(ingrInput);
+      }
+      console.log("enter was pressed in the text field");
+    });
+    });
   };
-  // define terms
-  let searchTerm =
-  loading();
-  // AJAX call
-  $.ajax(settings).done(function (response) {
-    console.log(settings.url);
-    console.log(response);
-    let recipies = sortRecipies(response.hits, ingrChoiceArray);
-    console.log(recipies);
-    for (let i = 0; i < recipies.length; i++) {
-      console.log(recipies[i]);
-      let recipie = recipies[i].recipe;
-      let file = getFile('components/recipie-card.html?v=40');
-      let card = $(eval('`' + file + '`'));
-      $('.recipeOutput').prepend(card);
-    }
-  // add an event listener for if the user starts typing in the text field. if user types, stop typewriter and clear all entered ingredients
-  $("input").keydown(function () {
-    stopTypeWriter();
-    console.log("the user has typed");
-  });
-
-  // add event listener for when user presses 'enter'. when this happens, the ingredient should be added as a span and the value should be sent to the ingrChoice array
-  $("input").on('keypress', function(e) {
-    let ingrInput = $(this).value;
-    if(e.which == 13) {
-      $("input").add("<div id='i-have-tags'>");
-      $("#i-have-tags").add("<span class='inline-block bg-white rounded px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 ingrChoice'>");
-      $(".ingrChoice").text(ingrInput);
-    }
-    console.log("enter was pressed in the text field");
-  });
-  });
 });
 
 window.showFilters = function () {
