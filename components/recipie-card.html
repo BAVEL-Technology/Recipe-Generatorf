@@ -40,7 +40,7 @@
     ${recipie.ingredients.map(function (ingredient) {
       let color = ingredient.text.containsAny(ingrChoiceArray) ? 'green' : 'red';
       let icon = ingredient.text.containsAny(ingrChoiceArray) ? 'check' : 'times';
-      return '<span class="inline-block bg-' + color + '-200 rounded-full px-3 py-1 text-sm font-semibold text-' + color + '-700 mr-2 mb-2"><i class="fas fa-' + icon + '"></i>&nbsp' + ingredient.text + '</span>';
+      return '<span class="ingredient inline-block bg-' + color + '-200 rounded-full px-3 py-1 text-sm font-semibold text-' + color + '-700 mr-2 mb-2"><i class="fas fa-' + icon + '"></i>&nbsp' + ingredient.text + '</span>';
     }).join("")}
   </div>
   </div>
