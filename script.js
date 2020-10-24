@@ -259,7 +259,7 @@ $(".recipeButton").on("click", function () {
     $(".inputWarning").addClass("text-center font-medium rounded-full border-solid border-2 border-red-400 bg-red-200 text-red-700 py-2 px-4")
   } else {
     $(".inputWarning").remove();
-    var apiURLCall = "https://api.edamam.com/search?q=chicken&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567" + cuisine.join('') + "&from=0&to=10";
+    var apiURLCall = "https://api.edamam.com/search?q=" + ingrChoiceArray[0] +"&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567" + cuisine.join('') + "&from=0&to=10";
     var settings = {
       url:
         apiURLCall,
