@@ -250,32 +250,6 @@ $(".dish").on("click", function() {
   console.log(dish);
 });
 
-function ingredientify (str) {
-  return str.replace(/ +/g, '-');
-}
-
-function prettyfy (str) {
-  return str.replace('-', ' ');
-}
-
-$(".ingredient").on('click', function () {
-  var apiURLCallIngredients = 'https://bon-api.com/api/v1/ingredient-alternatives/' + ingredientify($(this).text());
-
-  var settingsIngredients = {
-    'method': 'GET',
-      'url': apiURLCallIngredients,
-      'headers': {
-        'Authorization': 'Token 62cab45d3fee7a60c15e00bef1bcd030defb62ee'
-      }
-  }
-  $.ajax(settingsIngredients).done(function (response) {
-    console.log(settingsIngredients.url);
-    console.log(ingredientify($(this).text()));
-    console.log(response);
-    $(this).text(prettyfy(response.response.ingredientify($(this).text()).alternatives[0]));
-  });
-});
-
 // add an event listener for the recipeButton
 $(".recipeButton").on("click", function () {
   // if user has not entered any ingredients, display a warning that they must enter at least 1 ingredient
@@ -330,3 +304,30 @@ $(".recipeButton").on("click", function () {
 window.showFilters = function () {
   $('#cusineType').css("visibility", "visible")
 }
+
+
+function ingredientify (str) {
+  return str.replace(/ +/g, '-');
+}
+
+function prettyfy (str) {
+  return str.replace('-', ' ');
+}
+
+$(".ingredient").on('click', function () {
+  var apiURLCallIngredients = 'https://bon-api.com/api/v1/ingredient-alternatives/' + ingredientify($(this).text());
+
+  var settingsIngredients = {
+    'method': 'GET',
+      'url': apiURLCallIngredients,
+      'headers': {
+        'Authorization': 'Token 62cab45d3fee7a60c15e00bef1bcd030defb62ee'
+      }
+  }
+  $.ajax(settingsIngredients).done(function (response) {
+    console.log(settingsIngredients.url);
+    console.log(ingredientify($(this).text()));
+    console.log(response);
+    $(this).text(prettyfy(response.response.ingredientify($(this).text()).alternatives[0]));
+  });
+});
