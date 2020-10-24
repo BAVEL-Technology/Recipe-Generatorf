@@ -21640,6 +21640,18 @@ video {
 
 @import url('https://fonts.googleapis.com/css2?family=BioRhyme:wght@200;300;400;700;800&display=swap');
 
+.BIO {
+  background-color:rgb(195, 218, 254);
+}
+
+.bioText {
+  background-color: white;
+}
+
+.inBio {
+  margin: 0 auto;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
