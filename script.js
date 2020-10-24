@@ -315,7 +315,7 @@ function prettyfy (str) {
 }
 
 $("body").on('click', ".ingredient", function () {
-  var apiURLCallIngredients = 'https://bon-api.com/api/v1/ingredient-alternatives/' + ingredientify($(this).text());
+  var apiURLCallIngredients = 'https://bon-api.com/api/v1/ingredient-alternatives/garlic';
 
   var settingsIngredients = {
     'method': 'GET',
