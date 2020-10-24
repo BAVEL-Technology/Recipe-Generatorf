@@ -272,7 +272,7 @@ $(".ingredient").on('click', function () {
     console.log(settingsIngredients.url);
     console.log(ingredientify($(this).text()));
     console.log(response);
-    $(this).text() = prettyfy(response.response.ingredientify($(this).text()).alternatives[0]);
+    $(this).text(prettyfy(response.response.ingredientify($(this).text()).alternatives[0]));
   }
 });
 
