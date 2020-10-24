@@ -156,8 +156,8 @@ function sortRecipies(recipies, ingredients) {
   for (let i = 0; i < recipies.length; i++) {
     let count = 0;
     for (let j = 0; j < recipies[i].recipe.ingredientLines.length; j++) {
-      if (recipies[i].recipe.ingredientLines[i].containsAny(ingredients)) {
-        count++;
+        if (recipies[i].recipe.ingredientLines[j].containsAny(ingredients)) {
+          count++;
       }
     }
     returnRecipiesObject.push({
@@ -166,10 +166,10 @@ function sortRecipies(recipies, ingredients) {
     });
   }
 
-  returnRecipiesObject.sort((a, b) =>
-    a.similarities > b.similarities ? 1 : -1
-  );
-
+  returnRecipiesObject.sort(function (a, b) {
+    return a.similarities - b.similarities;
+  });
+  console.log(returnRecipiesObject);
   return returnRecipiesObject;
 }
 
