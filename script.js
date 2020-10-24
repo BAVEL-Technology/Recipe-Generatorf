@@ -252,7 +252,7 @@ $(".dish").on("click", function() {
 
 // add an event listener for the recipeButton
 $(".recipeButton").on("click", function () {
-  var apiURLCall = "https://api.edamam.com/search?q=" + cuisine[0] + "&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567" + cuisine.join('') + "&from=0&to=10";
+  var apiURLCall = "https://api.edamam.com/search?q=" + ingrChoiceArray[0] + "&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567" + cuisine.join('') + "&from=0&to=10";
   var settings = {
     url:
       apiURLCall,
