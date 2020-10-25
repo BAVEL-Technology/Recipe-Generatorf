@@ -320,6 +320,7 @@ $("body").on('click', ".ingredient", function () {
   var settingsIngredients = {
     'method': 'GET',
       'url': apiURLCallIngredients,
+      'crossDomain': true,
       'headers': {
         'Access-Control-Allow-Origin': 'https://https-github-com-steversontong.github.io',
         'Authorization': 'Token 62cab45d3fee7a60c15e00bef1bcd030defb62ee'
