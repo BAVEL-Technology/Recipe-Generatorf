@@ -321,7 +321,7 @@ $("body").on('click', ".ingredient", function () {
     'method': 'GET',
       'url': apiURLCallIngredients,
       'headers': {
-        'Access-Control-Allow-Origin: *',
+        'Access-Control-Allow-Origin': 'https://https-github-com-steversontong.github.io/Recipe-Generatorf/',
         'Authorization': 'Token 62cab45d3fee7a60c15e00bef1bcd030defb62ee'
       }
   }
