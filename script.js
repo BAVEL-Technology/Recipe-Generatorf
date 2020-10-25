@@ -321,6 +321,7 @@ $("body").on('click', ".ingredient", function () {
     'method': 'GET',
       'url': apiURLCallIngredients,
       'headers': {
+        'Access-Control-Allow-Origin: *',
         'Authorization': 'Token 62cab45d3fee7a60c15e00bef1bcd030defb62ee'
       }
   }
