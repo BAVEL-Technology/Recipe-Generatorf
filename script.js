@@ -146,7 +146,7 @@ $(document).ready(function () {
 $(".resetButton").on("click", function () {
   window.clearInterval(intervalTypeWriter);
   $(".userInputDiv").find(".ingrChoice").remove();
-  $("input").val("")
+  $("input").val("");
   ingrChoiceArray = [];
   console.log("The reset button was clicked" + ingrChoiceArray);
 });
@@ -207,6 +207,7 @@ $("input").keydown(function (event) {
         "right-0 bg-white rounded px-3 py-1 text-sm font-semibold m-1 text-gray-700 ingrChoice"
       );
       // clear the value
+      $("input").val("");
   }
 });
 
