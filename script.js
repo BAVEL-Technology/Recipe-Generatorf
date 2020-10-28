@@ -249,8 +249,9 @@ $(".recipeButton").on("click", function () {
 
     $.ajax(settingsQuotes).done(function (response) {
       const data = JSON.parse(response);
-      $('.quote').text(data[Math.floor(Math.random() * Math.floor(data.length))].text);
-      $('.author').text(data[(Math.random() * Math.floor(data.length))].author);
+      console.log((Math.random() * Math.floor(data.length)));
+      $('.quote').text(data[0].text);
+      $('.author').text(data[0].author);
     });
   if ((ingrChoiceArray.length === 0) && ($(".inputWarning").length == 0 )) {
     $(".userButtons").before("<div class='inputWarning'></div>");
