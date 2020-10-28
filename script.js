@@ -208,6 +208,7 @@ $("input").keydown(function (event) {
       );
       // clear the value
   }
+  $("input").val("");
 });
 
 // add event listener for the fa-times icons that are within the spans
