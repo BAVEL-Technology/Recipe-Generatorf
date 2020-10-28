@@ -241,6 +241,18 @@ $(".cuisine").on("click", function() {
 // add an event listener for the recipeButton
 $(".recipeButton").on("click", function () {
   // if user has not entered any ingredients, display a warning that they must enter at least 1 ingredient
+  const settingsQuotes = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://type.fit/api/quotes",
+  "method": "GET"
+}
+
+    $.ajax(settingsQuotes).done(function (response) {
+      const data = JSON.parse(response);
+      $('.quote').text(data[number].text);
+      $('.author').text(data[number].author);
+    });
   if ((ingrChoiceArray.length === 0) && ($(".inputWarning").length == 0 )) {
     $(".userButtons").before("<div class='inputWarning'></div>");
     $(".inputWarning").text("You must enter at least one ingredient")
