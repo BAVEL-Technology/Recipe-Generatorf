@@ -225,7 +225,7 @@ var dish = [];
 
 $(".cuisine").on("click", function() {
   if (!cuisine.includes($(this).text())) {
-    cuisine.push($(this).text());
+    cuisine.push('&diet=' + $(this).text());
     $(this).removeClass('bg-indigo-200 text-indigo-700 border-indigo-700');
     $(this).addClass('bg-green-200 text-green-700 border-green-700');
   } else {
@@ -237,20 +237,6 @@ $(".cuisine").on("click", function() {
   console.log(cuisine);
 });
 
-$(".dish").on("click", function() {
-  if (!dish.includes($(this).text())) {
-    dish.push($(this).text());
-    $(this).removeClass('bg-purple-200 text-purple-700 border-purple-700');
-    $(this).addClass('bg-green-200 text-green-700 border-green-700');
-  } else {
-    let index = dish.indexOf($(this).text());
-    dish.splice(index, 1);
-    $(this).removeClass('bg-green-200 text-green-700 border-green-700');
-    $(this).addClass('border-purple-700 bg-purple-200 text-purple-700');
-  }
-  console.log(dish);
-});
-
 // add an event listener for the recipeButton
 $(".recipeButton").on("click", function () {
   // if user has not entered any ingredients, display a warning that they must enter at least 1 ingredient
@@ -260,7 +246,7 @@ $(".recipeButton").on("click", function () {
     $(".inputWarning").addClass("text-center font-medium rounded-full border-solid border-2 border-red-400 bg-red-200 text-red-700 py-2 px-4")
   } else {
     $(".inputWarning").remove();
-    var apiURLCall = "https://api.edamam.com/search?q=chicken&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567" + cuisine.join('') + "&from=0&to=10";
+    var apiURLCall = "https://api.edamam.com/search?q=" + ingrChoiceArray[0] +"&app_id=a5834ee5&app_key=503ed9948bec6a3f85b3a4e5cd2ce567" + cuisine.join('') + "&from=0&to=10";
     var settings = {
       url:
         apiURLCall,
@@ -305,3 +291,33 @@ $(".recipeButton").on("click", function () {
 window.showFilters = function () {
   $('#cusineType').css("visibility", "visible")
 }
+
+
+function ingredientify (str) {
+  return str.replace(/ +/g, '-');
+}
+
+function prettyfy (str) {
+  return str.replace('-', ' ');
+}
+
+$("body").on('click', ".ingredient", function () {
+  var apiURLCallIngredients = 'https://bon-api.com/api/v1/ingredient-alternatives/garlic';
+
+  var settingsIngredients = {
+    'method': 'GET',
+      'url': apiURLCallIngredients,
+      'dataType': 'jsonp',
+      'crossDomain': true,
+      'headers': {
+        'Access-Control-Allow-Origin': 'https://https-github-com-steversontong.github.io',
+        'Authorization': 'Token 62cab45d3fee7a60c15e00bef1bcd030defb62ee'
+      }
+  }
+  $.ajax(settingsIngredients).done(function (response) {
+    console.log(settingsIngredients.url);
+    console.log(ingredientify($(this).text()));
+    console.log(response);
+    $(this).text(prettyfy(response.response.ingredientify($(this).text()).alternatives[0]));
+  });
+});
