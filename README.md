@@ -31,6 +31,8 @@ You will need to use a package manager to install the dependencies. This project
 
 Type your preferred ingredient into the search form and click "Find Recipes" (alternativelly, press enter). The recipes will then be called from the Edamame API and rendered on screen. To reset your ingredients and recipes click the "Reset" button.
 
+<img src="https://raw.githubusercontent.com/rschm007/Portfolio_Page/master/public/assets/imgs/webdevo_gif1.gif" alt="Recipe Generator app demo gif" style="max-width:100%;">
+
 
 # Contribute
 
