@@ -5,7 +5,7 @@
   
 Check out the badges hosted by [shields.io](https://shields.io/).
 
-Check out the app! https://https-github-com-steversontong.github.io/Recipe-Generatorf/
+Check out the app! https://bavel-technology.github.io/Recipe-Generatorf/
 
 ## Description
 
